@@ -9,8 +9,8 @@ PhD student at Texas A&M University, advised by
 [Dr. Vivek Sarin](https://people.engr.tamu.edu/sarin/index.html). My doctoral
 research focuses on scalable and efficient Gaussian Process (GP) regression,
 and you are welcomed to check out
-[this post]({% post_url 2023-08-26-welcome-to-jekyll %}) to learn more about my
-research contributions.
+[this post]({% post_url 2023-08-26-research %}) to learn more about my research
+contributions.
 
 I grew up in Beijing, China, and obtained my Bachelor's degree in Electrical
 and Computer Engineering at Beihang University (formerly BUAA) in the same
