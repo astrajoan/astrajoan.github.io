@@ -25,5 +25,5 @@ firm believer in the revolution of AI and electronic vehicles.
 
 Everyone says I look like a little squirrel, so here's an image of a cute one:
 
-![](/imgs/squirrel.jpg)
+![](/assets/squirrel.jpg)
 <span class="img-caption">Photo credit: suefeldberg/Getty Images</span>
