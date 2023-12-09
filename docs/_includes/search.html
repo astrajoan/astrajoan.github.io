@@ -72,49 +72,49 @@
   async function lunr_search(term) {
     await load_search_index();
 
-    var defaultResults = document.getElementById("defaultresults");
     var lunrResults = document.getElementById("lunrsearchresults");
-    if (term) {
-      defaultResults.style.display = "none";
-      lunrResults.innerHTML = `
-      <h2 class="post-list-heading">
-        Search results for ${term}
-      </h2>
-      <ul class="post-list"></ul>
-      `;
+    lunrResults.innerHTML = `
+    <h2 class="post-list-heading">
+      Search results for ${term}
+    </h2>
+    <ul class="post-list"></ul>
+    `;
 
-      var results = idx.search(term);
-      var rows = document.querySelectorAll("#lunrsearchresults ul")[0];
-      if (results.length > 0) {
-        for (var i = 0; i < results.length; i++) {
-          const ref = results[i]["ref"];
-          const { url, title, date } = posts[ref];
-          rows.innerHTML += `
-          <li>
-            <span class="post-meta">
-              ${date}
-            </span>
-            <h3>
-              <a class="post-link" href="${url}">
-                ${title}
-              </a>
-            </h3>
-          </li>
-          `;
-        }
-      } else {
-        rows.innerHTML = `<li>No results found...</li>`;
+    var results = idx.search(term);
+    var rows = document.querySelectorAll("#lunrsearchresults ul")[0];
+    if (results.length > 0) {
+      for (var i = 0; i < results.length; i++) {
+        const ref = results[i]["ref"];
+        const { url, title, date } = posts[ref];
+        rows.innerHTML += `
+        <li>
+          <span class="post-meta">
+            ${date}
+          </span>
+          <h3>
+            <a class="post-link" href="${url}">
+              ${title}
+            </a>
+          </h3>
+        </li>
+        `;
       }
     } else {
-      defaultResults.style.display = "block";
-      lunrResults.innerHTML = `<ul class="post-list"></ul>`;
+      rows.innerHTML = `<li>No results found...</li>`;
     }
   }
 
   const urlParams = new URLSearchParams(window.location.search);
   const term = urlParams.get("q");
+
+  var defaultResults = document.getElementById("defaultresults");
+  var searchBox = document.getElementById("lunrsearch");
+  
   if (term) {
-    document.getElementById("lunrsearch").value = term;
+    defaultResults.style.display = "none";
+    searchBox.value = term;
     lunr_search(term);
+  } else {
+    defaultResults.style.display = "block";
   }
 </script>
