@@ -54,7 +54,8 @@ fs.readdir(MD_DIR, (err, files) => {
   
       indices.forEach(function (doc) { this.add(doc); }, this);
     });
-    var data = { lunr_idx, posts: indices };
+    var posts = indices.map(({ body, ...rest }) => rest);
+    var data = { lunr_idx, posts };
 
     fs.writeFile(OUT_FILE, JSON.stringify(data, null, 2), (err) => {
       if (err) throw err;
