@@ -1,0 +1,120 @@
+<script src="https://unpkg.com/lunr/lunr.js"></script>
+
+{%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+
+<form id="lunrsearchform">
+  <input
+    type="text"
+    class="form-control"
+    id="lunrsearch"
+    maxlength="255"
+    name="q"
+    value=""
+    placeholder="Search via Lunr.js"
+  />
+</form>
+
+<div id="emptyresults">
+  <ul class="post-list"></ul>
+</div>
+
+<div id="defaultresults">
+  {% for category in site.categories %}
+  <h2 class="post-list-heading">{{ category[0] | capitalize }}</h2>
+  <ul class="post-list">
+    {% for post in category[1] %}
+    <li>
+      <span class="post-meta">{{ post.date | date: date_format }}</span>
+      <h3>
+        <a class="post-link" href="{{ post.url | relative_url }}">
+          {{ post.title | escape }}
+        </a>
+      </h3>
+    </li>
+    {%- endfor -%}
+  </ul>
+  {%- endfor -%}
+
+  {% assign others = site.posts | where_exp: "post", "post.category == nil" %}
+  {% if others.size > 0 %}
+  <h2 class="post-list-heading">Others</h2>
+  <ul class="post-list">
+    {% for post in others %}
+    <li>
+      <span class="post-meta">{{ post.date | date: date_format }}</span>
+      <h3>
+        <a class="post-link" href="{{ post.url | relative_url }}">
+          {{ post.title | escape }}
+        </a>
+      </h3>
+    </li>
+    {%- endfor -%}
+  </ul>
+  {%- endif -%}
+</div>
+
+<div id="lunrsearchresults">
+  <ul class="post-list"></ul>
+</div>
+
+<script>
+  let idx = null, posts = null;
+
+  async function load_search_index() {
+    if (idx === null) {
+      const response = await fetch("/assets/search_index.json");
+      const data = await response.json();
+      idx = lunr.Index.load(data.lunr_idx);
+      posts = data.posts;
+    }
+  }
+
+  async function lunr_search(term) {
+    await load_search_index();
+
+    var defaultResults = document.getElementById("defaultresults");
+    var lunrResults = document.getElementById("lunrsearchresults");
+    if (term) {
+      defaultResults.style.display = "none";
+      lunrResults.innerHTML = `
+      <h2 class="post-list-heading">
+        Search results for ${term}
+      </h2>
+      <ul class="post-list"></ul>
+      `;
+
+      var results = idx.search(term);
+      var rows = document.querySelectorAll("#lunrsearchresults ul")[0];
+      if (results.length > 0) {
+        for (var i = 0; i < results.length; i++) {
+          const ref = results[i]["ref"];
+          const { url, title, date } = posts[ref];
+          rows.innerHTML += `
+          <li>
+            <span class="post-meta">
+              ${date}
+            </span>
+            <h3>
+              <a class="post-link" href="${url}">
+                ${title}
+              </a>
+            </h3>
+          </li>
+          `;
+        }
+      } else {
+        rows.innerHTML = `<li>No results found...</li>`;
+      }
+    } else {
+      defaultResults.style.display = "block";
+      lunrResults.innerHTML = `<ul class="post-list"></ul>`;
+    }
+  }
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const term = urlParams.get("q");
+  if (term) {
+    document.getElementById("lunrsearch").value = term;
+    lunr_search(term);
+  }
+</script>
