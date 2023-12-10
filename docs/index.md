@@ -6,7 +6,7 @@ layout: home
 ---
 
 **Looking for software engineer jobs and internships!** I'm especially
-interested in opportunities related to C++, parallel computing, distributed
-systems, and Linux kernel. Please do not hesitate to contact me through my
+interested in opportunities related to CUDA, C++, high-performance computing
+and distributed system. Please do not hesitate to contact me through my
 [LinkedIn](https://www.linkedin.com/in/astrajoan/) or
 [email](mailto:astrajoan@tamu.edu) as listed in the bottom of this page.

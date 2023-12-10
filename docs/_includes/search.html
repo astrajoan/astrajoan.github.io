@@ -3,15 +3,18 @@
 {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
 
 <form id="lunrsearchform">
-  <input
-    type="text"
-    class="form-control"
-    id="lunrsearch"
-    maxlength="255"
-    name="q"
-    value=""
-    placeholder="Search via Lunr.js"
-  />
+  <p>
+    Search all posts:
+    <input
+      type="text"
+      class="form-control"
+      id="lunrsearch"
+      maxlength="255"
+      name="q"
+      value=""
+      placeholder="Search via Lunr.js"
+    />
+  </p>
 </form>
 
 <div id="emptyresults">
@@ -19,8 +22,8 @@
 </div>
 
 <div id="defaultresults">
-  {% for category in site.categories %}
-  <h2 class="post-list-heading">{{ category[0] | capitalize }}</h2>
+  {% for category in site.categories reversed %}
+  <h2 class="post-list-heading">{{ category[0] }}</h2>
   <ul class="post-list">
     {% for post in category[1] %}
     <li>

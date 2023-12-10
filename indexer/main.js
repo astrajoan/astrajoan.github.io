@@ -12,7 +12,7 @@ const OUT_FILE = "../docs/assets/search_index.json";
 
 function getUrl(category, file) {
   const partial = file.split("-").join("/").replace(".md", ".html");
-  return "/" + (category ? category + "/" : "") + partial;
+  return "/" + (category ? category.toLowerCase() + "/" : "") + partial;
 }
 
 function getDate(dateStr) {
@@ -27,6 +27,7 @@ function getDate(dateStr) {
 }
 
 console.log("Reading all markdown files from: " + MD_DIR);
+
 fs.readdir(MD_DIR, (err, files) => {
   if (err) throw err;
 
@@ -63,4 +64,3 @@ fs.readdir(MD_DIR, (err, files) => {
     });
   });
 });
-
