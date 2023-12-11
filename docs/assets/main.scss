@@ -9,16 +9,18 @@
   z-index: 10;
 }
 
-.footer-col-1 {
-  width: calc(30% - 15px);
-}
+@media (min-width: 801px) {
+  .footer-col-1 {
+    width: calc(30% - 15px);
+  }
 
-.footer-col-2 {
-  width: calc(20% - 15px);
-}
+  .footer-col-2 {
+    width: calc(20% - 15px);
+  }
 
-.footer-col-3 {
-  width: calc(50% - 15px);
+  .footer-col-3 {
+    width: calc(50% - 15px);
+  }
 }
 
 .img-caption {
@@ -102,7 +104,7 @@ $yellowSecondaryTextColor: #FBC02D;
     font-weight: normal;
   }
 
-  @media(max-width: 600px) {
+  @media (max-width: 600px) {
     p {
       max-width: 65%;
     }
