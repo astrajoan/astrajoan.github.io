@@ -9,6 +9,18 @@
   z-index: 10;
 }
 
+.footer-col-1 {
+  width: calc(30% - 15px);
+}
+
+.footer-col-2 {
+  width: calc(20% - 15px);
+}
+
+.footer-col-3 {
+  width: calc(50% - 15px);
+}
+
 .img-caption {
   font-size: 12px;
   font-style: italic;
